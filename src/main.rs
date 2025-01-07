@@ -28,7 +28,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
         Operation::Login => {
-            authenticate(&mut config).await?;
+            authenticate(&mut config, args.username, args.password).await?;
             println!("Authentication successful!");
             return Ok(());
         }

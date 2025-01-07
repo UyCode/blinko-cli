@@ -20,7 +20,14 @@ pub struct CsrfResponse {
     pub csrf_token: String,
 }
 
-pub async fn authenticate(config: &mut Config) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn authenticate(
+    config: &mut Config,
+    username: Option<String>,
+    password: Option<String>,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let username = username.unwrap_or_else(|| "admin".to_string());
+    let password = password.unwrap_or_else(|| "123456".to_string());
+
     let client = reqwest::Client::builder()
         .cookie_store(true)
         .build()?;
@@ -46,8 +53,8 @@ pub async fn authenticate(config: &mut Config) -> Result<(), Box<dyn std::error:
     // Step 3: Authenticate with credentials
     let auth_url = "http://localhost:1122/api/auth/callback/credentials";
     let params = [
-        ("username", "admin"),
-        ("password", "123456"),
+        ("username", username.as_str()),
+        ("password", password.as_str()),
         ("callbackUrl", "/"),
         ("redirect", "false"),
         ("csrfToken", &csrf_response.csrf_token),

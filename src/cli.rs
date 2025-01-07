@@ -23,4 +23,12 @@ pub struct Args {
     /// Token (only used with set-token operation)
     #[arg(short, long)]
     pub token: Option<String>,
+
+    /// Username (only used with login operation)
+    #[arg(short, long)]
+    pub username: Option<String>,
+
+    /// Password (only used with login operation)
+    #[arg(short, long)]
+    pub password: Option<String>,
 } 
