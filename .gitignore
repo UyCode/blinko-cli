@@ -1,0 +1,6 @@
+/target
+Cargo.lock
+.env
+config.json
+*.pem
+.DS_Store 
